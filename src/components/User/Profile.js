@@ -21,8 +21,13 @@ class Profile extends React.PureComponent {
   async componentDidMount() {
     titleSetter('Profile');
     const { match: { params: { id } } } = this.props;
-    const { data } = await apiUser.getProfile(id);
-    this.setState({ data, loading: false });
+    try {
+      const { data } = await apiUser.getProfile(id);
+      this.setState({ data, loading: false });
+    } catch (e) {
+      // TODO: handle error
+      console.error(e);
+    }
   }
 
   render() {

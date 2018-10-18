@@ -15,9 +15,12 @@ export default class ExamResult extends React.Component {
 
   async componentDidMount() {
     titleSetter('Exam Result');
-    const { match: { params: { id } } } = this.props;
-    const { data } = await apiUser.getExamResult(id);
-    this.setState({ data, loading: false });
+    try {
+      const { data } = await apiUser.getExamResult();
+      this.setState({ data, loading: false });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   render() {
